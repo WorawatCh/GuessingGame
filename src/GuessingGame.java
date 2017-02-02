@@ -11,6 +11,7 @@ public class GuessingGame {
 	private int upperBound;
 	private int secret;
 	private String hint;
+	private int count = 0;
 
 	/**
 	 * Initialize a new game.
@@ -46,17 +47,18 @@ public class GuessingGame {
 	 *         some hint if it is a wrong number
 	 */
 	public boolean guess(int number) {
+		count++;
 		if (number == secret) {
-			setHint("Correct. The secret is " + secret);
+			setHint(String.format("Correct. The secret is %d. You used %d guesses.", this.secret, this.count));
 			return true;
+
+		} else if (number < secret) {
+			setHint("Sorry,your guess is too small");
 		} else {
-			if (number > secret) {
-				setHint("Sorry,your guess is too large");
-			} else if (number < secret) {
-				setHint("Sorry,your guess is too small");
-			}
-			return false;
+			setHint("Sorry,your guess is too large");
 		}
+		return false;
+
 	}
 
 	/**
@@ -69,6 +71,15 @@ public class GuessingGame {
 	}
 
 	/**
+	 * Return how many time do you guess
+	 * 
+	 * @return amount time that you guess
+	 */
+	public int getCount() {
+		return this.count;
+	}
+
+	/**
 	 * to set hint
 	 */
 	public void setHint(String hint) {
@@ -76,3 +87,4 @@ public class GuessingGame {
 	}
 
 }
+
